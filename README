@@ -1,0 +1,4 @@
+Step 1: Edit DB connection details in includes/init.php
+Step 2: Import shell.sql into your database
+Step 3: ?????
+Step 4: PROFIT!!!
